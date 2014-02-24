@@ -1,0 +1,13 @@
+[Appearance]
+Skin=placidTheme23c.yakuake
+
+[Dialogs]
+FirstRun=false
+
+[Favorite Profiles]
+Favorites=
+
+[KFileDialog Settings]
+Height 901=630
+Recent Files[$e]=161222-placidTheme23c.yakuake.tar.gz,$HOME/Downloads/161222-placidTheme23c.yakuake.tar.gz
+Width 1716=1008
