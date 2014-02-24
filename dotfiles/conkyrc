@@ -30,7 +30,7 @@ update_interval 3.0
 minimum_size 1260 720
 
 # Maximum sixe of text area
-maximum_width 1260 720
+maximum_width 1920 1080
 
 # Draw shades?
 draw_shades no
@@ -38,7 +38,7 @@ draw_shades no
 # Text stuff
 draw_outline no # amplifies text if yes
 draw_borders no
-font zekton:size=7
+font DroidSansMono:size=8
 uppercase no # set to yes if you want all text to be in uppercase
 
 # Stippled borders?
@@ -77,7 +77,8 @@ Uptime: ${uptime}
 
 ${color orange}CPU________________________________________________$color
 ${freq}MHz   Load: ${loadavg}   ${alignr 1000}Temp: ${acpitemp}C
-${cpugraph 10,256 000000 ffffff} 
+${cpugraph 10,256 000000 ffffff}
+
 NAME          ${alignr 1000}   PID       CPU%      MEM%
 ${top name 1} ${alignr 1000} ${top pid 1}       ${top cpu 1}        ${top mem 1}
 ${top name 2} ${alignr 1000} ${top pid 2}       ${top cpu 2}        ${top mem 2}
@@ -105,10 +106,9 @@ Total: ${totaldown eth1} ${alignr 1000}Total: ${totalup eth1}${endif}
 ${else}LAN IP: ${alignr 1000} ${addr eth0}
 Down: ${downspeed eth0} k/s ${alignr 1000}Up: ${upspeed eth0} k/s
 ${downspeedgraph eth0 10,120 000000 ff0000}${alignr 1000}${upspeedgraph eth0 10,120 000000 00ff00}
+
 Total: ${totaldown eth0} ${alignr 1000}Total: ${totalup eth0}
 ${endif}____________________________________________________
-
-${offset 50}${execp ./Scripts/ids.pl}
 
 ${color orange}Interfaces${alignr 1000}${color #707070}(${color white}speed down${color #707070}/${color white}up${color #707070})${color white} ${color #707070}[${color white}total down${color #707070}/${color white}up${color #707070}]
 ${color #F09000}eth0${color #707070}:${color white} ${addr eth0}${alignr 1000}${color #707070}(${color white}${downspeed eth0}k${color #707070}/${color white}${upspeed eth0}k${color #707070})${color white} ${color #707070}[${color white}${totaldown eth0}${color #707070}/${color white}${totalup eth0}${color #707070}]
@@ -128,9 +128,9 @@ ${color #0077ff}Outbound Connection ${alignr 1000} Remote Service/Port$color
  ${tcp_portmon 32768 61000 rhost 3} ${alignr 1000} ${tcp_portmon 32768 61000 rservice 3}
  ${tcp_portmon 32768 61000 rhost 4} ${alignr 1000} ${tcp_portmon 32768 61000 rservice 4}
 
-${offset 900}${voffset -700}${color orange}Current Weather$color
-${offset 900}${execpi 300 ./Scripts/noaaweather.py -i kgrb}
+${color orange}Current Weather$color
+${execpi 300 ./Scripts/noaaweather.py -i kgrb}
 
-${offset 900}${voffset 400}${color orange}WIRELESS NETWORKS ---------------------------------------- $color
-${offset 900}${execpi 300 ./Scripts/wifinder_conky}
+${color orange}WIRELESS NETWORKS ---------------------------------------- $color
+${execpi 300 ./Scripts/wifinder_conky}
 
