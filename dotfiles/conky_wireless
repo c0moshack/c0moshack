@@ -1,0 +1,74 @@
+# UBUNTU-CONKY
+# A comprehensive conky script, configured for use on
+# Ubuntu / Debian Gnome, without the need for any external scripts.
+#
+# Based on conky-jc and the default .conkyrc.
+# INCLUDES:
+# - tail of /var/log/messages 
+# - netstat connections to your computer
+#
+# -- Pengo (conky@pengo.us)
+#
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# fiddle with window
+use_spacer right
+use_xft yes
+
+# Update interval in seconds
+update_interval 3.0
+
+# Minimum size of text area
+# minimum_size 250 5
+
+# Draw shades?
+draw_shades no
+
+# Text stuff
+draw_outline no # amplifies text if yes
+draw_borders no
+font zekton:size=8
+uppercase no # set to yes if you want all text to be in uppercase
+
+# Stippled borders?
+stippled_borders 3
+
+# border margins
+window.border_inner_margin 9
+
+# border width
+border_width 10
+
+# Default colors and also border colors, grey90 == #e5e5e5
+default_color grey
+
+own_window_colour brown
+own_window_transparent yes
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_left
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+gap_x 10
+gap_y 10
+
+#text variable buffer
+text_buffer_size 1000
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+$color
+${color orange}Wireless Networks ${hr 2}$color
+${execp ./Scripts/wifinder_conky}

@@ -1,0 +1,136 @@
+# UBUNTU-CONKY
+# A comprehensive conky script, configured for use on
+# Ubuntu / Debian Gnome, without the need for any external scripts.
+#
+# Based on conky-jc and the default .conkyrc.
+# INCLUDES:
+# - tail of /var/log/messages 
+# - netstat connections to your computer
+#
+# -- Pengo (conky@pengo.us)
+#
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# fiddle with window
+use_spacer left
+use_xft yes
+
+# Update interval in seconds
+update_interval 3.0
+
+# Minimum size of text area
+minimum_size 1260 720
+
+# Maximum sixe of text area
+maximum_width 1260 720
+
+# Draw shades?
+draw_shades no
+
+# Text stuff
+draw_outline no # amplifies text if yes
+draw_borders no
+font zekton:size=7
+uppercase no # set to yes if you want all text to be in uppercase
+
+# Stippled borders?
+stippled_borders 1
+
+# border margins
+border_outer_margin 9
+
+# border width
+border_width 1
+
+# Default colors and also border colors, grey90 == #e5e5e5
+default_color grey
+
+own_window_colour brown
+own_window_transparent yes
+
+# Text alignment, other possible values are commented
+alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+
+# Gap between borders of screen and text
+gap_x 10
+gap_y 30
+
+# stuff after 'TEXT' will be formatted on screen
+
+TEXT
+$color
+
+${color orange}SYSTEM____________________________________________$color}
+$nodename $sysname $kernel on $machine
+Uptime: ${uptime}
+
+${color orange}CPU________________________________________________$color
+${freq}MHz   Load: ${loadavg}   ${alignr 1000}Temp: ${acpitemp}C
+${cpugraph 10,256 000000 ffffff} 
+NAME          ${alignr 1000}   PID       CPU%      MEM%
+${top name 1} ${alignr 1000} ${top pid 1}       ${top cpu 1}        ${top mem 1}
+${top name 2} ${alignr 1000} ${top pid 2}       ${top cpu 2}        ${top mem 2}
+${top name 3} ${alignr 1000} ${top pid 3}       ${top cpu 3}        ${top mem 3}
+${top name 4} ${alignr 1000} ${top pid 4}       ${top cpu 4}        ${top mem 4}
+${top name 5} ${alignr 1000} ${top pid 5}       ${top cpu 5}        ${top mem 5}
+
+${color orange}MEMORY / DISK______________________________________$color
+RAM:   $memperc%   ${alignr 1000}${membar 10,120}$color
+Swap:  $swapperc%   ${alignr 1000}${swapbar 10,120}$color
+
+Root: ${fs_free_perc /}%  ${alignr 1000}${fs_bar 10,120 /}$color
+Free: ${fs_free /}   Used: ${fs_used /}   Total:${fs_size /}
+Home: ${fs_free_perc /home/mrlucky}%  ${alignr 1000}${fs_bar 10,120 /home/mrlucky}$color 
+Free: ${fs_free /home/mrlucky}   Used: ${fs_used /home/mrlucky}   Total:${fs_size /home/mrlucky}
+
+${color orange}NETWORK__________________________________________$color
+${if_empty ${exec cat /proc/net/arp | grep eth0}}${if_empty ${exec cat /proc/net/arp | grep eth1}}No Network connection
+${else}WLAN IP: ${addr eth1} ${alignr 1000} ${wireless_mode eth1} and ${wireless_bitrate eth1}
+SSID: ${wireless_essid eth1} ${alignr 1000} Range: ${wireless_link_qual_perc eth1} % / ${wireless_link_qual_max eth1} %
+${wireless_link_bar 10,256 eth1}
+Down: ${downspeed eth1} k/s ${alignr 1000} Up: ${upspeed eth1} k/s
+${downspeedgraph eth1 10,120 000000 ff0000}${alignr 1000}${upspeedgraph eth1 10,120 000000 00ff00}
+Total: ${totaldown eth1} ${alignr 1000}Total: ${totalup eth1}${endif}
+${else}LAN IP: ${alignr 1000} ${addr eth0}
+Down: ${downspeed eth0} k/s ${alignr 1000}Up: ${upspeed eth0} k/s
+${downspeedgraph eth0 10,120 000000 ff0000}${alignr 1000}${upspeedgraph eth0 10,120 000000 00ff00}
+Total: ${totaldown eth0} ${alignr 1000}Total: ${totalup eth0}
+${endif}____________________________________________________
+
+${offset 50}${execp ./Scripts/ids.pl}
+
+${color orange}Interfaces${alignr 1000}${color #707070}(${color white}speed down${color #707070}/${color white}up${color #707070})${color white} ${color #707070}[${color white}total down${color #707070}/${color white}up${color #707070}]
+${color #F09000}eth0${color #707070}:${color white} ${addr eth0}${alignr 1000}${color #707070}(${color white}${downspeed eth0}k${color #707070}/${color white}${upspeed eth0}k${color #707070})${color white} ${color #707070}[${color white}${totaldown eth0}${color #707070}/${color white}${totalup eth0}${color #707070}]
+${color #F09000}eth1${color #707070}:${color white} ${addr eth1}${alignr 1000}${color #707070}(${color white}${downspeed eth1}k${color #707070}/${color white}${upspeed eth1}k${color #707070})${color white} ${color #707070}[${color white}${totaldown eth1}${color #707070}/${color white}${totalup eth1}${color #707070}]
+${color #0077ff}Port(s)${alignr 1000}#Connections
+$color Inbound: ${tcp_portmon 1 32767 count}  Outbound: ${tcp_portmon 32768 61000 count}${alignr 1000}ALL: ${tcp_portmon 1 65535 count}
+${color #0077ff}Inbound Connection ${alignr 1000} Local Service/Port$color
+ ${tcp_portmon 1 32767 rhost 0} ${alignr 1000} ${tcp_portmon 1 32767 lservice 0}
+ ${tcp_portmon 1 32767 rhost 1} ${alignr 1000} ${tcp_portmon 1 32767 lservice 1}
+ ${tcp_portmon 1 32767 rhost 2} ${alignr 1000} ${tcp_portmon 1 32767 lservice 2}
+ ${tcp_portmon 1 32767 rhost 3} ${alignr 1000} ${tcp_portmon 1 32767 lservice 3}
+ ${tcp_portmon 1 32767 rhost 4} ${alignr 1000} ${tcp_portmon 1 32767 lservice 4}
+${color #0077ff}Outbound Connection ${alignr 1000} Remote Service/Port$color
+ ${tcp_portmon 32768 61000 rhost 0} ${alignr 1000} ${tcp_portmon 32768 61000 rservice 0}
+ ${tcp_portmon 32768 61000 rhost 1} ${alignr 1000} ${tcp_portmon 32768 61000 rservice 1}
+ ${tcp_portmon 32768 61000 rhost 2} ${alignr 1000} ${tcp_portmon 32768 61000 rservice 2}
+ ${tcp_portmon 32768 61000 rhost 3} ${alignr 1000} ${tcp_portmon 32768 61000 rservice 3}
+ ${tcp_portmon 32768 61000 rhost 4} ${alignr 1000} ${tcp_portmon 32768 61000 rservice 4}
+
+${offset 900}${voffset -700}${color orange}Current Weather$color
+${offset 900}${execpi 300 ./Scripts/noaaweather.py -i kgrb}
+
+${offset 900}${voffset 400}${color orange}WIRELESS NETWORKS ---------------------------------------- $color
+${offset 900}${execpi 300 ./Scripts/wifinder_conky}
+
