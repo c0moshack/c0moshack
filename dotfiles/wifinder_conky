@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+# Add the following to sudo visudo
+# %admin All=(ALL) ALL
+# username ALL=NOPASSWD: /sbin/iwlist
+
+`clear`;
+$a = 0;
+@essid = `sudo iwlist wlan0 scan | grep ESSID | cut -c 21-1000 | awk -F: '{print \$2}'`;
+@signal = `sudo iwlist wlan0 scan | grep Quality | cut -c 21-1000 | awk -F" " '{print \$1":"\$2":"\$3":"\$4":"\$5":"\$6":"\$7}' | awk -F: '{print \$5}'`;
+@noise = `sudo iwlist wlan0 scan | grep Quality | cut -c 21-1000 | awk -F" " '{print \$1":"\$2":"\$3":"\$4":"\$5":"\$6":"\$7}' | awk -F: '{print \$9}'`;
+@address = `sudo iwlist wlan0 scan | grep Address | cut -c 21-1000 | awk -F" " '{print \$2}'`;
+chomp @essid;
+chomp @signal;
+chomp @noise;
+chomp @address;
+
+	print ('${color blue}ESSID          Signal(dBm)     Noise(dBm)     SNR(dBm)     Address $color');
+	print ("\n");
+	
+	foreach (@essid)
+	{
+		@snr = @signal[$a] - @noise[$a];
+		print "@essid[$a]\t @signal[$a]\t @noise[$a]\t @snr\t @address[$a] \n";
+		$a++;
+	}

@@ -810,7 +810,7 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"	# use with 'shopt -s histappend';sav
 # autoload -U compinit				# use to enable famous zsh tab-completion system
 # compinit					# use to enable famous zsh tab-completion system
 export BLOCKSIZE=K				# set blocksize size
-export BROWSER='firefox'			# set default browser
+export BROWSER='google-chrome'			# set default browser
 # export BROWSER='opera'			# set default browser
 # export BROWSER=$(find_alternatives chromium-browser google-chrome opera firefox firefox-bin iceweasel konqueror w3m lynx)	# uses function 'find_alternatives'
 export CDDIR="$HOME"				# for use with the function 'cd' and the alias 'cdd'
@@ -819,7 +819,7 @@ export CDDIR="$HOME"				# for use with the function 'cd' and the alias 'cdd'
 # export DISPLAY=:79
 # export EDITOR='gedit'				# use default text editor
 # export EDITOR="gedit -w --resume" Typing 'fc'	# open last command for editing in gedit, then execute on save
-export EDITOR='vi'				# use default text editor
+export EDITOR='vim'				# use default text editor
 # export ftp_proxy=${MY_PROXY}
 # export GPG_TTY='tty'				# gpg-agent says it needs this
 # export GREP_OPTIONS='-D skip --binary-files=without-match --ignore-case'		# most commonly used grep options

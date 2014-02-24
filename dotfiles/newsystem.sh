@@ -11,21 +11,27 @@ apt-get update
 apt-get -y upgrade
 apt-get -y dist-upgrade
 
-# Install drop down shell
-apt-get install yakuake
+# Install drop down shell, sensors, conky
+apt-get install yakuake lm-sensors qtcurve conky-all
+
+sensors-detect
+
+#Install oh-my-zsh
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 
 # Kali install plasma desktop
 apt-get install kali-defaults kali-root-login desktop-base kde-plasma-desktop
 
 #
-apt-get install qtcurve
-#Download placidTheme25a.qtcurve  
-wget http://kde-look.org/CONTENT/content-files/160458-placidTheme25a.qtcurve+gtk3.tar.gz
-#get placid colors
-wget http://kde-look.org/CONTENT/content-files/159869-placidTheme25a.colors
-#get conky
-wget http://kde-look.org/CONTENT/content-files/161096-placidTheme25a.conkyrc.tar.gz
-#placid plasma
-wget http://kde-look.org/CONTENT/content-files/163107-placidTheme25b.plasma.tar.gz
-#placid yakuake
-wget http://kde-look.org/CONTENT/content-files/161222-placidTheme23c.yakuake.tar.gz
+ln -s c0moshack/dotfiles/conkyrc .conkyrc
+ln -s c0moshack/dotfiles/conky_wireless .conky_wireless
+
+ln -s ~/c0moshack/dotfiles/themes/placidTheme2a ~/.themes/placidTheme25a
+ln -s ~/c0moshack/dotfiles/yakuakerc ~/.kde/share/config/yakuakerc
+ln -s ~/c0moshack/dotfiles/themes/placidTheme23c.yakuake placidTheme23c.yakuake
+ln -s ~/c0moshack/dotfiles/themes/placidTheme25b ~/.kde/share/apps/QtCurve/placidTheme25b
+ln -s ~/c0moshack/dotfiles/themes/placidTheme25a.qtcurve ~/.kde/share/apps/QtCurve/placidTheme25a.qtcurve
+ln -s c0moshack/dotfiles/gtkrc-2.0 .gtkrc-2.0
+ln -s /home/c0moshack/c0moshack/dotfiles/nautilus-scripts .gnome2/nautilus-scripts
+ln -s /home/c0moshack/c0moshack/dotfiles/nemo-scripts .gnome2/nemo-scripts
+
